@@ -2,58 +2,48 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>News Scraper</title>
+    <title>Scraping With Mongoose</title>
     <style>
-        #user{
-            text-align: center;
-        }
+      body { background-color: #F2F6D0 }
       #wrapper {
         width: 960px;
-        padding-top: 10%;
         margin-left: auto;
         margin-right: auto;
-        text-align: center;
+        padding-top: 5%;
       }
-      body {
-        font-family: sans-serif;
-        background-color: #C0FFEE;
+      #articles {
+        display: inline-block;
+        overflow: auto;
+        width: 60%;
+        height: 700px;
       }
-      #results { margin-top: 50px; }
-      #userinput { font-size: 24px; }
+      #notes {
+        float: right;
+        width: 30%;
+      }
+      textarea, input {
+        display: block;
+        width: 100%;
+        background-color: #FCF5C7;
+      }
       input {
-        width: 50%;
         height: 36px;
         font-size: 24px;
       }
-      #log-container { overflow: auto; height: 150px; }
-
+      textarea {
+        height: 200px;
+        font-size: 18px;
+      }
     </style>
   </head>
   <body>
     <div id="wrapper">
-      <h1>Austin KXAN news scraper</h1>
-      <h2><i>Scrape the latest news articles from KXAN Austin</i></h2>
-      <button type="submit" id="fetch">scrape</button>
- 
-      </div>
-      <p><b>Results:</b> <span id="results"></span></p>
-      <div id="results"></div>
-        <table id="news">
-            <tr><th>Title: </th></tr><div id="title"></div>
-            <tr><th><br></th></tr>
-            <tr><th>Link:</th></tr><div id="link"></div>
-            <tr><th><br></th></tr>
-            <tr><th>Summary:</th></tr><div id="summary"></div>
-            <tr><th><br></th></tr>
-        </table>
-        <form id="user" action="/submit" method="post">
-            <input type="text" name="email" placeholder="email">
-            <input type="text" id="comment" placeholder="Type Comment Here"/>
-      </form>
-      <button type="submit" id="add">Add Comment</button>
+      <h1>News Scraper</h1>
+      <h2><i>Austin news scraper</i></h2>
+      <div id="articles"></div>
+      <div id="comments"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="./app.js"></script>
-
+    <script src="app.js"></script>
   </body>
 </html>
