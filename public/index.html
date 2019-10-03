@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <title>News Scraper</title>
     <style>
-
-      table, td {
-        border-width: 1px;
-        border-style: solid;
-        border-color: black;
-      }
+        #user{
+            text-align: center;
+        }
       #wrapper {
         width: 960px;
         padding-top: 10%;
@@ -37,21 +34,19 @@
       <button type="submit" id="fetch">scrape</button>
       <div id="results">
         <table id="news">
-            <tr><th>Title</th></tr>
-            <tr><th>Link</th></tr>
-            <tr><th>Summary</th></tr>
+            <tr><th>Title: </th></tr>
+            <tr><th><br></th></tr>
+            <tr><th>Link:</th></tr>
+            <tr><th><br></th></tr>
+            <tr><th>Summary:</th></tr>
+            <tr><th><br></th></tr>
         </table>
       </div>
-      <form id="userinput">
-        <form action="/submit" method="post">
-            <input type="text" name="username" placeholder="username">
-        <br />
-            <input type="text" name ="email" placeholder="email">
-        <br />
-          <input type="text" id="comment" placeholder="Type Comment Here"/>
-        <br />
-        <button type="submit" id="add">Add Comment</button>
+        <form id="user" action="/submit" method="post">
+            <input type="text" name="email" placeholder="email">
+            <input type="text" id="comment" placeholder="Type Comment Here"/>
       </form>
+      <button type="submit" id="add">Add Comment</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./app.js"></script>
