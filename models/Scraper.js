@@ -1,7 +1,9 @@
-var mongoose = require("mongoose");
+var http = require('http');
+var cheerio = require('cheerio');
+var Model = require('./model');
+var Scraper = require('./scraper');
 var axios = require("axios");
 var cheerio = require("cheerio");
-
 //  ========cheerio scraping my website========
 // Make axios request 
 axios.get("https://www.kxan.com").then(function(response) {
@@ -21,31 +23,52 @@ axios.get("https://www.kxan.com").then(function(response) {
       summary: summary
     });
   });
+  console.log(results);
 });
-// initialize scraping 
-Scraper.prototype.init = function () {
-  var model;
-  var self = this;
-  self.on('loaded', function (html) {
-      model = self.parsePage(html);
-      self.emit('complete', model);
-  });
-  self.loadWebPage();
-};
-
-//parses html and gets required data
-Scraper.prototype.parsePage = function (html) {
-  var $ = cheerio.load(html);
-  var title = $('#title').text();
-  var link = $('#link').text();
-  var summary = $('#summary').text();
-
-  var model = {
-    title: title.trim(),
-    link: link.trim(),
-    summary: summary.trim().split('\n')
-  };
-  return model;
-};
-
 module.exports = Scraper;
+// Scraper.prototype.parsePage = function (html) {
+//   var $ = cheerio.load(html);
+//   var title = $('#title').text();
+//   var summary = $('#summary').text();
+//   var link = $('#link').text()
+//   var model = {
+//     title: title.trim().split('\n'),
+//     summary: summary.trim()('\n'),
+//     link: link.trim().split
+//   };
+//   return model;
+// };
+
+
+// Scraper.prototype.init = function () {
+//   var model;
+//   var self = this;
+//   self.on('loaded', function (html) {
+//       model = self.parsePage(html);
+//       self.emit('complete', model);
+//   });
+//   self.loadWebPage();
+// };
+// Scraper.prototype.loadWebPage = function () {
+//   var self = this;
+//   console.log('\n\nLoading ' + 'website');
+//   http.get(self.url, function (res) {
+//     var body = '';
+   
+//     if(res.statusCode !== 200) {
+//       return self.emit('error', STATUS_CODES[res.statusCode]);
+//     }
+//     res.on('data', function (chunk) {
+//       body += chunk;
+//     });
+//     res.on('end', function () {
+//       self.emit('loaded', body);
+//     });
+//   })
+//   .on('error', function (err) {
+//     self.emit('error', err);
+//   });      
+// };
+/*
+ * Parse html and return an object
+**/
