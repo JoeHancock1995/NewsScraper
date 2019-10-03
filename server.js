@@ -1,34 +1,53 @@
 var cheerio = require("cheerio");
 var axios = require("axios");
+var express = require("express");
 var handlebars = require("handlebars");
-var mongoose = require("mongoose")
+var mongoose = require("mongoose");
+var logger = require("morgan");
+var PORT = 3000;
 
-var databaseUrl = "newsscraper";
-var collections = ["scrapecollection"];
-mongoose.connect("mongodb://localhost/newsscraperdb", { useNewUrlParser: true });
+// Initialize Express
+var app = express();
+
+app.use(logger("dev"));
+// Parse request body as JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+// Make public a static folder
+app.use(express.static("public"));
+
+
+mongoose.connect("mongodb://localhost/newsscraper", { useNewUrlParser: true });
+
+db.Article.create({ name: "Test Article" })
+  .then(function(dbArticle) {
+    // If saved successfully, print the new Library document to the console
+    console.log(dbArticle);
+  })
+  .catch(function(err) {
+    // If an error occurs, print it to the console
+    console.log(err.message);
+  });
 
 //  ========cheerio scraping my website========
-// Make a request via axios to grab the HTML body from the site
+// Make axios request 
 axios.get("https://www.kxan.com").then(function(response) {
-  // Load the HTML into cheerio and save it to a variable
-  // '$' becomes a shorthand for cheerio's selector commandslike jQuery's '$'
+// Load into cheerio and save it to a variable  // '$' acts like jQuery's '$'
   var $ = cheerio.load(response.data);
-  // An empty array to save the data that we'll scrape
   var results = [];
-  // Select each element in the HTML body from which you want information.
+// each element in the HTML we want information
   $("article").each(function(i, element) {
     var title = $(element).children().text();
     var link = $(element).find("a").attr("href");
     var summary = $(element).children().text();
     var img = $(element).find("img").attr("src");
-        // Save these results in an object, then into the results array
+// Save these results in an object. Then the results array
     results.push({
       title: title,
       link: link,
-      summary: summary,
-      img: img
+      summary: summary
     });
   });
-  // Log the results once you've looped through each of the elements found with cheerio
+
   console.log(results);
 });

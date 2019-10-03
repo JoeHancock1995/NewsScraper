@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>News Scraper</title>
+    <style>
+
+      table, td {
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+      }
+      #wrapper {
+        width: 960px;
+        padding-top: 10%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+      body {
+        font-family: sans-serif;
+        background-color: #C0FFEE;
+      }
+      #results { margin-top: 50px; }
+      #userinput { font-size: 24px; }
+      input {
+        width: 50%;
+        height: 36px;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>Austin KXAN news scraper</h1>
+      <h2><i>Scrape the latest news articles from KXAN Austin</i></h2>
+      <button type="submit" id="fetch">scrape</button>
+      <div id="results">
+        <table id="news">
+            <tr><th>Title</th></tr>
+            <tr><th>Link</th></tr>
+            <tr><th>Summary</th></tr>
+        </table>
+      </div>
+      <form id="userinput">
+        <form action="/submit" method="post">
+            <input type="text" name="username" placeholder="username">
+        <br />
+            <input type="text" name ="email" placeholder="email">
+        <br />
+          <input type="text" id="comment" placeholder="Type Comment Here"/>
+        <br />
+        <button type="submit" id="add">Add Comment</button>
+      </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
