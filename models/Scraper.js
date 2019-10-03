@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
-
+var axios = require("axios");
+var cheerio = require("cheerio");
 // Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
@@ -28,3 +29,4 @@ var Scraper = mongoose.model("Scraper", ScraperSchema);
 
 // Export the Library model
 module.exports = Scraper;
+

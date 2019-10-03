@@ -1,4 +1,4 @@
-// Click Events
+
 $("#fetch").on("click", function() {
     $.ajax({
       type: "POST",
@@ -50,14 +50,17 @@ $("#add").on("click", function() {
     $("News").empty();
     $.getJSON("/news", function(data) {
       for (var i = 0; i < data.length; i++) {
-        $("#news").prepend("<tr><td>" + data[i].title + "</td></tr>" , "<tr><td>" + data[i].link +
-          "</td></tr>" , "<td><tr>" + data[i].summary + "</td></tr>");
+        $("#title").prepend("<tr><td>" + data[i].title + "</td></tr>");
+        $("#link").prepend("<tr><td>" + data[i].link + "</td></tr>"); 
+        $("#summary").prepend ("<td><tr>" + data[i].summary + "</td></tr>");
       }
       $("#news").prepend("<tr><th>Title</th><th>Link</th><th>Summary</th></tr>");
     });
   }
   
- 
+  var theDiv = document.getElementById("title");
+  var content = document.createTextNode("results");
+  theDiv.appendChild(results);
   
   // Calling our function
   getNews();

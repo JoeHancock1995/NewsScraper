@@ -25,6 +25,8 @@
         height: 36px;
         font-size: 24px;
       }
+      #log-container { overflow: auto; height: 150px; }
+
     </style>
   </head>
   <body>
@@ -32,16 +34,18 @@
       <h1>Austin KXAN news scraper</h1>
       <h2><i>Scrape the latest news articles from KXAN Austin</i></h2>
       <button type="submit" id="fetch">scrape</button>
-      <div id="results">
+ 
+      </div>
+      <p><b>Results:</b> <span id="results"></span></p>
+      <div id="results"></div>
         <table id="news">
-            <tr><th>Title: </th></tr>
+            <tr><th>Title: </th></tr><div id="title"></div>
             <tr><th><br></th></tr>
-            <tr><th>Link:</th></tr>
+            <tr><th>Link:</th></tr><div id="link"></div>
             <tr><th><br></th></tr>
-            <tr><th>Summary:</th></tr>
+            <tr><th>Summary:</th></tr><div id="summary"></div>
             <tr><th><br></th></tr>
         </table>
-      </div>
         <form id="user" action="/submit" method="post">
             <input type="text" name="email" placeholder="email">
             <input type="text" id="comment" placeholder="Type Comment Here"/>
@@ -50,5 +54,6 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./app.js"></script>
+
   </body>
 </html>
