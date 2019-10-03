@@ -19,11 +19,13 @@ axios.get("https://www.kxan.com").then(function(response) {
     var title = $(element).children().text();
     var link = $(element).find("a").attr("href");
     var summary = $(element).children().text();
+    var img = $(element).find("img").attr("src");
         // Save these results in an object that we'll push into the results array we defined earlier
     results.push({
       title: title,
       link: link,
-      summary: summary
+      summary: summary,
+      img: img
     });
   });
 
