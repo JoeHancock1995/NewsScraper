@@ -3,7 +3,8 @@ var axios = require("axios");
 var handlebars = require("handlebars");
 var mongoose = require("mongoose")
 
-
+var databaseUrl = "newsscraper";
+var collections = ["scrapecollection"];
 mongoose.connect("mongodb://localhost/newsscraperdb", { useNewUrlParser: true });
 
 //  ========cheerio scraping my website========

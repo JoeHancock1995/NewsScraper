@@ -1,0 +1,91 @@
+var cheerio = require("cheerio");
+var axios = require("axios");
+var handlebars = require("handlebars");
+var mongojs = require("mongojs")
+var express = require("express");
+var app = express();
+
+var databaseUrl = "newsscraper";
+var collections = ["scrapecollection"];
+
+var db = mongojs(databaseUrl, collections);
+db.on("error", function(error) {
+  console.log("Database Error:", error);
+});
+
+app.get("/", function(req, res) {
+    res.send("Hello world");
+  });
+
+// Retrieve data from the db
+app.get("/all", function(req, res) {
+    // Find all results from the scrapedData collection in the db
+    db.scrapecollection.find({}, function(error, found) {
+      // Throw any errors to the console
+      if (error) {
+        console.log(error);
+      }
+      // If there are no errors, send the data to the browser as json
+      else {
+        res.json(found);
+      }
+    });
+  });
+  
+// mongoose.connect("mongodb://localhost/newsscraperdb", { useNewUrlParser: true });
+app.get("/scrape", function(req, res) {
+//  ========cheerio scraping my website========
+// Make a request via axios to grab the HTML body from the site
+axios.get("https://www.kxan.com").then(function(response) {
+  // Load the HTML into cheerio and save it to a variable
+  // '$' becomes a shorthand for cheerio's selector commandslike jQuery's '$'
+  var $ = cheerio.load(response.data);
+  // An empty array to save the data that we'll scrape
+  var results = [];
+  // Select each element in the HTML body from which you want information.
+  $("article").each(function(i, element) {
+    var title = $(element).children().text();
+    var link = $(element).find("a").attr("href");
+    var summary = $(element).children().text();
+    var img = $(element).find("img").attr("src");
+        // Save these results in an object, then into the results array
+        if (title && link && summary) {
+        db.scrapecollection.insert({
+            title: title,
+            link: link,
+            summary: summary
+          },
+          function(err, inserted) {
+            if (err) {
+              // Log the error if one is encountered during the query
+              console.log(err);
+            }
+            else {
+              // Otherwise, log the inserted data
+              console.log(inserted);
+            }
+          });
+        }
+    });
+});
+
+  // Send a "Scrape Complete" message to the browser
+  res.send("Scrape Complete");
+});
+
+
+// Listen on port 3000
+app.listen(3000, function() {
+  console.log("App running on port 3000!");
+});
+
+//     results.push({
+//       title: title,
+//       link: link,
+//       summary: summary,
+//       img: img
+//     });
+//   });
+  // Log the results once you've looped through each of the elements found with cheerio
+//   console.log(results);
+// });
