@@ -17,7 +17,6 @@ var PORT = 3000;
 var app = express();
 
 // Configure middleware
-
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Parse request body as JSON
@@ -27,7 +26,17 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+var MONGODB_URI = 
+process.env.MONGODB_URI || 'MONGODB://3000/newsScraper';
+
+console.log(MONGODB_URI);
+
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+});
+
 
 // Routes
 

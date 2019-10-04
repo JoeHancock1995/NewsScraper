@@ -3,18 +3,33 @@ $.getJSON("/articles", function(data) {
   // For each one
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br />" + data[i].summary + "</p>");
   }
 });
 
 
 // Whenever someone clicks a p tag
 $(document).on("click", "p", function() {
-  // Empty the notes from the note section
-  $("#notes").empty();
+  // Empty the article from the article section
+  $("#article").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
 
+
+  axios.get("https://www.kxan.com").then(function(response) {
+    var title = $(element).children().text();
+    var link = $(element).find("a").attr("href");
+    var summary = $(element).children().text();
+ 
+// Save these results in an object. Then the results array
+    results.push({
+      title: title,
+      link: link,
+      summary: summary
+    });
+  });
+  console.log(results);
+});
   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
@@ -40,7 +55,7 @@ $(document).on("click", "p", function() {
         $("#bodyinput").val(data.note.body);
       }
     });
-});
+;
 
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
