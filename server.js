@@ -25,44 +25,44 @@ app.use(express.static("public"));
 mongoose.connect('mongodb://localhost:27017/newsscraper', {useNewUrlParser: true});
  
 //===================================== Getting the Scrape =============================//
-app.get("/scrape", function(req, res) {
-  // First, we grab the body of the html with axios
-  axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(response.data);
-    // Now, we grab every li within an article tag, and do the following:
-    $("title").each(function(i, element) {
-      // Save an empty result object
-      var result = {};
+app.get("/scrape", function(req, res) {  db.Article.deleteMany({})
+.then(function(dbArticleRem) {
+  // View the added result in the console
+  console.log(dbArticleRem);
+})
+.catch(function(err) {
+  // If an error occurred, log it
+  console.log(err);
+});
 
-      // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this)
-      .children('a')
-      .text();
-      
-      result.link = $(this)
-      .children("a")
-      .attr("href");
-
-      result.summary = $(this)
-      .children("p")
-      .text();
-
-      // Create a new Article using the `result` object built from scraping
-      db.Article.create(result)
-        .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
-        })
-        .catch(function(err) {
-          // If an error occurred, log it
-          console.log(err);
-        });
+//  ========cheerio scraping my website========
+// Make axios request 
+axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
+// Load into cheerio and save it to a variable  // '$' acts like jQuery's '$'
+  var $ = cheerio.load(response.data);
+  // var results = [];
+// each element in the HTML we want information
+  $("article").each(function(i, element) {
+    var result = {};
+    result.title = $(this).find("h1").text();
+    result.link = $(this).find("a").attr("href");
+    result.summary = $(this).children("div").children("p").text();
+ 
+    db.Article.create(result)
+    .then(function(dbArticle) {
+      // View the added result in the console
+      console.log(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, log it
+      console.log(err);
     });
-    // Send a message to the client
+      // Send a message to the client
     res.send("Scrape Complete");
+    });
   });
 });
+
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
@@ -177,39 +177,6 @@ app.post("/articles/:id", function(req, res) {
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
-
-
-
-
-///// --------- working cheerio example
-var http = require('http');
-var cheerio = require('cheerio');
-
-
-var axios = require("axios");
-var cheerio = require("cheerio");
-//  ========cheerio scraping my website========
-// Make axios request 
-axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
-// Load into cheerio and save it to a variable  // '$' acts like jQuery's '$'
-  var $ = cheerio.load(response.data);
-  var results = [];
-// each element in the HTML we want information
-  $("article").each(function(i, element) {
-    var title = $(element).find("h1").text();
-    var link = $(element).find("a").attr("href");
-    var summary = $(element).children("p").text();
- 
-// Save these results in an object. Then the results array
-    results.push({
-      title: title,
-      link: link,
-      summary: summary
-    });
-  });
-  console.log(results);
-});
-
 
 
 // ------ use for user routing and comments
