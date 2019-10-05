@@ -1,12 +1,12 @@
 var http = require('http');
 var cheerio = require('cheerio');
-var Model = require('./model');
+
 var Scraper = require('./scraper');
 var axios = require("axios");
 var cheerio = require("cheerio");
 //  ========cheerio scraping my website========
 // Make axios request 
-axios.get("https://www.kxan.com").then(function(response) {
+axios.get("https://www.residentadvisor.net").then(function(response) {
 // Load into cheerio and save it to a variable  // '$' acts like jQuery's '$'
   var $ = cheerio.load(response.data);
   var results = [];

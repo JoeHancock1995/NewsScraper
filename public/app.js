@@ -16,7 +16,7 @@ $(document).on("click", "p", function() {
   var thisId = $(this).attr("data-id");
 
 
-  axios.get("https://www.kxan.com").then(function(response) {
+  axios.get("https://www.residentadvisor.net").then(function(response) {
     var title = $(element).children().text();
     var link = $(element).find("a").attr("href");
     var summary = $(element).children().text();

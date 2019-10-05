@@ -37,28 +37,39 @@ mongoose.connect(MONGODB_URI, {
   useFindAndModify: false,
 });
 
-
 // Routes
 
-// A GET route for scraping the echoJS website
+// A GET route for scraping the Resident Advisor website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("http://www.echojs.com/").then(function(response) {
+  axios.get("https://www.residentadvisor.net").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
-
     // Now, we grab every h2 within an article tag, and do the following:
     $("article h2").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
+      var title = $(this)
+      .children("a")
+      .children('h2')
+      .text();
+
+      if (title !== '') {
       result.title = $(this)
-        .children("a")
-        .text();
-      result.link = $(this)
-        .children("a")
-        .attr("href");
+
+  var articleURL = "https://www.residentadvisor.net${$(this)
+  .children()
+  .first()
+  .attr('href')}";
+  result.link = $(this);
+
+  result.byLine = $(this)
+      .children('h4')
+      .children('span');
+
+       
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
