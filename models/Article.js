@@ -1,11 +1,21 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:3000/scraper');
-mongoose.connection.on('error', function() {
-  console.error('MongoDB Connection Error. Make sure MongoDB is running.');
-});
-var ArticlesSchema = new mongoose.Schema({
-  title: String,
-  link: {type: String, lowercase: true},
+var Schema = mongoose;
+
+var ArticleSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  link: {
+    type: String,
+    lowercase: true,
+    required: true,
+    trim: true,
+  },
   summary: Array
 });
-module.exports = mongoose.model('Articles', ArticlesSchema);
+
+var Article = mongoose.model('Article', ArticleSchema);
+
+module.exports = Article;
