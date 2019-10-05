@@ -3,40 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <title>Scraping With Mongoose</title>
-    <style>
-      body { background-color: #F2F6D0 }
-      #wrapper {
-        width: 960px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 5%;
-      }
-      #articles {
-        display: inline-block;
-        overflow: auto;
-        width: 60%;
-        height: 700px;
-      }
-      #notes {
-        float: right;
-        width: 30%;
-      }
-      textarea, input {
-        display: block;
-        width: 100%;
-        background-color: #FCF5C7;
-      }
-      input {
-        height: 36px;
-        font-size: 24px;
-      }
-      textarea {
-        height: 200px;
-        font-size: 18px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/style.css"/>
   </head>
   <body>
+    <nav class= "navtop">
+     <ul>
+        <li><button class="navbutton">SCRAPE NEW ARTICLES</button></li>
+        <li><button class="navbutton">CLEAR ARTICLES</button></li>
+        <li class="dropdown">
+            <button><a href="javascript:void(0)" class="dropbtn">COMMENT</a></button>
+            <div class="dropdown-content">
+              <ul class=commentbuttons>
+              <li><button>DISPLAY</button></li>
+              <li><button>ADD</button></li>
+              <li><button>DELETE</button></li>
+            </ul>
+      </ul>
+ 
+    </nav>
     <div id="wrapper">
       <h1>Music News</h1>
       <h2><i>Resident Advisor Scraper</i></h2>
