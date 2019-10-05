@@ -4,14 +4,14 @@ body { background-color: rgb(88, 88, 88); margin: 0; padding: 0}
   width: 960px;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
-}
+  text-align: center}
+
 #articles {
   display: inline-block;
   overflow: auto;
   width: 60%;
-  height: 700px;
-}
+  height: 700px}
+
 .navtop {
     width: 100%;
     position: relative;
@@ -21,7 +21,7 @@ ul { list-style-type: none; }
 a{text-decoration-line: none}
 
 .scrapebtn button{float: left}
-.commentbtn button{float: right;}
+.commentbtn button{float: right}
 
 .navbtn {
     display: inline-block;
@@ -39,9 +39,9 @@ a{text-decoration-line: none}
     height:  70px;
     cursor: pointer;
     color: black}
-.navbtn:hover {background-color: greenyellow}
-.navbutton:active {
-    background-color: #3e8e41;
+.navbtn:hover {background-color: rgb(148, 242, 0)}
+.navbtn:active {
+    background-color: rgb(188, 240, 9);
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
