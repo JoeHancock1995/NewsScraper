@@ -17,14 +17,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
+
+
 // Connect to the Mongo DB
+
+
 mongoose.connect('mongodb://localhost:27017/newsscraper', {useNewUrlParser: true});
-mongoose.get('article');
-
-
-// Routes
-
-// A GET route for scraping the Resident Advisor website
+ 
+//===================================== Getting the Scrape =============================//
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
   axios.get("https://www.residentadvisor.net").then(function(response) {
@@ -36,7 +36,7 @@ app.get("/scrape", function(req, res) {
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      var title = $(this)
+      result.title = $(this)
       .children("li")
       .children('a')
       .text();
@@ -84,21 +84,76 @@ app.get("/articles", function(req, res) {
     });
 });
 
-// // Route for grabbing a specific Article by id, populate it with it's note
-// app.post("/articles/:id", function(req, res) {
-//   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-//   db.Article.findOne({ _id: req.params.id })
-//     // ..and populate all of the notes associated with it
-//     .populate("note")
-//     .then(function(dbArticle) {
-//       // If we were able to successfully find an Article with the given id, send it back to the client
-//       res.json(dbArticle);
-//     })
-//     .catch(function(err) {
-//       // If an error occurred, send it to the client
-//       res.json(err);
-//     });
-// });
+
+
+
+//===================================== comments =============================//
+app.get("/comments", function(req, res) {
+  // Find all Notes
+  db.Comment.find({})
+    .then(function(dbComments) {
+      // If all Notes are successfully found, send them back to the client
+      res.json(dbComments);
+    })
+    .catch(function(err) {
+      // If an error occurs, send the error back to the client
+      res.json(err);
+    });
+});
+
+//===================================== user =============================//
+app.get("/user", function(req, res) {
+  // Find all Users
+  db.User.find({})
+    .then(function(dbUser) {
+      // If all Users are successfully found, send them back to the client
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      // If an error occurs, send the error back to the client
+      res.json(err);
+    });
+});
+
+//===================================== submit =============================//
+app.post("/submit", function(req, res) {
+  // Create a new Note in the db
+  db.Comment.create(req.body)
+    .then(function(dbComments) {
+      // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.User.findOneAndUpdate({}, { $push: { comments: dbComments._id } }, { new: true });
+    })
+    .then(function(dbUser) {
+      // If the User was updated successfully, send it back to the client
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
+
+//===================================== populateduser comments =============================//
+app.get("/populateduser", function(req, res) {
+  // Find all users
+  db.User.find({})
+    // Specify that we want to populate the retrieved users with any associated notes
+    .populate("comments")
+    .then(function(dbUser) {
+      // If able to successfully find and associate all Users and Notes, send them back to the client
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
+
+
+
+
 
 // Route for saving/updating an Article's associated Note
 app.post("/articles/:id", function(req, res) {
@@ -159,4 +214,72 @@ axios.get("https://www.residentadvisor.net").then(function(response) {
     });
   });
   console.log(results);
+});
+
+
+
+// ------ use for user routing and comments
+
+// Route for retrieving all Notes from the db
+app.get("/comments", function(req, res) {
+  // Find all Notes
+  db.Comment.find({})
+    .then(function(dbComments) {
+      // If all Notes are successfully found, send them back to the client
+      res.json(dbComments);
+    })
+    .catch(function(err) {
+      // If an error occurs, send the error back to the client
+      res.json(err);
+    });
+});
+
+// Route for retrieving all Users from the db
+app.get("/user", function(req, res) {
+  // Find all Users
+  db.User.find({})
+    .then(function(dbUser) {
+      // If all Users are successfully found, send them back to the client
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      // If an error occurs, send the error back to the client
+      res.json(err);
+    });
+});
+
+// Route for saving a new Note to the db and associating it with a User
+app.post("/submit", function(req, res) {
+  // Create a new Note in the db
+  db.Note.create(req.body)
+    .then(function(dbNote) {
+      // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.User.findOneAndUpdate({}, { $push: { notes: dbNote._id } }, { new: true });
+    })
+    .then(function(dbUser) {
+      // If the User was updated successfully, send it back to the client
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
+
+// Route to get all User's and populate them with their notes
+app.get("/populateduser", function(req, res) {
+  // Find all users
+  db.User.find({})
+    // Specify that we want to populate the retrieved users with any associated notes
+    .populate("comments")
+    .then(function(dbUser) {
+      // If able to successfully find and associate all Users and Notes, send them back to the client
+      res.json(dbUser);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
 });
