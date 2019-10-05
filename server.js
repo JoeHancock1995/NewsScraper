@@ -27,32 +27,26 @@ mongoose.connect('mongodb://localhost:27017/newsscraper', {useNewUrlParser: true
 //===================================== Getting the Scrape =============================//
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("https://www.residentadvisor.net").then(function(response) {
+  axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
     // Now, we grab every li within an article tag, and do the following:
-    $("li").each(function(i, element) {
+    $("title").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this)
-      .children("li")
       .children('a')
       .text();
+      
+      result.link = $(this)
+      .children("a")
+      .attr("href");
 
-      if (title !== '') {
-      result.title = $(this)
-
-  var articleLink = $(this)
-  .children()
-  .first()
-  .attr('href')};
-  result.link = articleLink;
-
-  result.byLine = $(this)
-      .children('h2')
-      .children('span');
+      result.summary = $(this)
+      .children("p")
+      .text();
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -191,20 +185,20 @@ app.listen(PORT, function() {
 var http = require('http');
 var cheerio = require('cheerio');
 
-var Scraper = require('./scraper');
+
 var axios = require("axios");
 var cheerio = require("cheerio");
 //  ========cheerio scraping my website========
 // Make axios request 
-axios.get("https://www.residentadvisor.net").then(function(response) {
+axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
 // Load into cheerio and save it to a variable  // '$' acts like jQuery's '$'
   var $ = cheerio.load(response.data);
   var results = [];
 // each element in the HTML we want information
   $("article").each(function(i, element) {
-    var title = $(element).children().text();
+    var title = $(element).find("h1").text();
     var link = $(element).find("a").attr("href");
-    var summary = $(element).children().text();
+    var summary = $(element).children("p").text();
  
 // Save these results in an object. Then the results array
     results.push({
