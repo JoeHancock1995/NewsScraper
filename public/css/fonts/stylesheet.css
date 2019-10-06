@@ -1,0 +1,51 @@
+
+@font-face {
+    font-family:"Conman Regular";
+    src:url("ConmanRegular.woff2") format("woff2"),url("ConmanRegular.woff") format("woff"),url("ConmanRegular.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+@font-face {
+    font-family:"Vitreous Medium";
+    src:url("Vitreous-Medium.woff2") format("woff2"),url("Vitreous-Medium.woff") format("woff"),url("Vitreous-Medium.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+@font-face {
+    font-family:"04b 30";
+    src:url("04B_30__.woff2") format("woff2"),url("04B_30__.woff") format("woff"),url("04B_30__.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+@font-face {
+    font-family:"babybox";
+    src:url("babybox0.woff2") format("woff2"),url("babybox0.woff") format("woff"),url("babybox0.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+
+@font-face {
+    font-family:"Back to 1982";
+    src:url("BACKTO1982.woff2") format("woff2"),url("BACKTO1982.woff") format("woff"),url("BACKTO1982.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+
+@font-face {
+    font-family:"panda ROBOT";
+    src:url("panda ROBOT.woff2") format("woff2"),url("panda ROBOT.woff") format("woff"),url("panda ROBOT.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+
+@font-face {
+    font-family:"Straka Regular";
+    src:url("straka.woff2") format("woff2"),url("straka.woff") format("woff"),url("straka.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+@font-face {
+    font-family:"Terminus (TTF)";
+    src:url("Terminus (TTF) 500.woff2") format("woff2"),url("Terminus (TTF) 500.woff") format("woff"),url("Terminus (TTF) 500.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+
+@font-face {
+    font-family:"Ticketing";
+    src:url("Ticketing.woff2") format("woff2"),url("Ticketing.woff") format("woff"),url("Ticketing.otf") format("opentype");
+    font-style:normal;font-weight:400;
+}
+        
