@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Scraping With Mongoose</title>
+<head>
+  <meta charset="UTF-8">
+  <title>Scraping With Mongoose</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/materia/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css"/>
-  </head>
-  <body>
-    <header>
+</head>
+
+<body>
+  <header>
     <nav class= "navtop">
-     <ul>
-       <div class="scrapebtn">
-        <li><button class="navbtn" id="scrapebtn">SCRAPE NEW ARTICLES</button></li>
-        <li><button class="navbtn" id="clearbtn">CLEAR ARTICLES</button></li>
-     </div>  
+
+      <div class="scrapebtn">
+        <button class="navbtn" id="scrapebtn">SCRAPE NEW ARTICLES</button>
+      </div>  
       <div class="commentbtn">
-        <li><button class="navbtn"><a href="" >COMMENT</a></button></li>
-      </ul>
+        <button class="navbtn">COMMENT</button>
+      </div>
+     
     </nav>
   </header>
-    <div id="wrapper">
-      <h1>Music News</h1>
-      <h2><i>Resident Advisor Scraper</i></h2>
+  <div id="wrapper">
+    <h1>Music News</h1>
+    <h2><i>Resident Advisor Scraper</i></h2>
       <div id="articles"></div>
-      <div id="comments"></div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <div id="comments">
+          <form action="/action_page.php" id="usrform">
+            Name: <input type="text" name="usrname">
+            <input type="submit">
+          </form>
+          <br>
+          <textarea rows="4" cols="50" name="comment" form="usrform">
+          Enter text here...</textarea>
+      </div>
+  </div> 
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>
-  </body>
+</body>
 </html>

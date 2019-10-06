@@ -33,7 +33,7 @@ axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response
     
     result.title = $(this).find("h1").text();
     result.link = $(this).find("a").attr("href");
-    result.summary = $(this).children().last();
+    result.summary = $(this).find("p.copy").text();
 
     db.Article.create(result)
     .then(function(dbArticle) {
