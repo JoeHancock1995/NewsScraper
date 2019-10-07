@@ -12,7 +12,7 @@
   <header>
     <nav class= "navtop">
       <div class="scrapebtn">
-        <button class="navbtn" id="scrapebtn">SCRAPE NEW ARTICLES</button>
+        <button class="navbtn" id="scrapebtn" onclick="scrape()">SCRAPE NEW ARTICLES</button>
       </div>  
       <div class="commentbtn">
         <button class="navbtn">COMMENT</button>
@@ -24,13 +24,13 @@
     <h2><i>Scrape Resident Advisor website for album reviews</i></h2>
       <div id="articles"></div>
       <div id="comments">
-          <form action="/action_page.php" id="usrform">
-            Name: <input type="text" name="usrname">
-            <input type="submit">
+          <form id="userform">
+            Name: <input id="name" type="text" name="username">
+            <button class="addcommentbtn" type="input">Submit</button>
           </form>
           <br>
-          <textarea rows="4" cols="50" name="comment" form="usrform">
-          Enter text here...</textarea>
+          <textarea id="commentinsert" rows="4" cols="50" name="comment" form="usrform">
+          </textarea>
       </div>
   </div> 
 

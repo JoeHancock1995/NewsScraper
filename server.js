@@ -24,7 +24,7 @@ app.get("/scrape", function(req, res) {  db.Article.deleteMany({})
 .catch(function(err) {
   console.log(err);
 });
-//=====================cheerio scraping RA website via axios request================//
+//=========cheerio scraping RA website via axios request into the DB================//
 axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
   var $ = cheerio.load(response.data);
 
