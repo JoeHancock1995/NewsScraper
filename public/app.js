@@ -1,51 +1,26 @@
 // ----------things to put in app.js
-// 1. function to loop through articles.
-$(function () {
-  $('#scrapebtn').on('click', function () {
-     var text = $('#fromInput');
-     $.ajax({
-       url:"serv.php",
-       method: "GET",
-       data: {
-         "title": text,
-         "link": Attr,
-         "summary": text
-       },
-       success: function(data) {
-         var name=JSON.parse(data);
-         $(".autofiller").val(name.name);// Try this 
-       }
-     });
-   });
- });
-
-
  // Function to call the scrape articles route
 function scrapeArticles() {
   $.get('/scrape', function(data) {
     console.log('Data', data);
-
+    alert("Added new articles");
     // After scrape is finished, get the articles
     console.log('Call getArticles');
-    getArticles();
-    // Set the number of new articles to display
-    var displayArticles = data.length;
+      })
+    };
 
-    // Set the alert text
-    alert("Added ${displayArticles} new articles");
+$("#btnScrape").click (function() {
+  $.get('/articles', function(data) {
+    alert("data:" + data);
   });
-}
-
+});
 // Click the Scrape New Articles Button
 $(document).on('click', '#btnScrape', function(e) {
   console.log('btnScrape Clicked!');
-
   // Prevent submit
   e.preventDefault();
-
   // Empty the Articles div
   $('#articles').empty();
-
   // Now call the function to scrape and get the Articles
   scrapeArticles();
 });

@@ -38,11 +38,11 @@ axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response
     db.Article.create(result)
     .then(function(dbArticle) {
       console.log(dbArticle);
+      res.json(dbArticle);
     })
     .catch(function(err) {
       console.log(err);
     });
-    res.send("Scrape Complete");
     });
   });
 });
