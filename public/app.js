@@ -14,9 +14,9 @@
     }
 
 function getArticles(){
-  $.get('/articles', function(data) {
+  $.get('/articles', function(dbArticle) {
     $('#articles').empty();
-    for (var i=0; i < data.length; i++) {
+    for (var i=0; i < dbArticle.length; i++) {
       var card = $('<div>');
       card.addClass('card');
       var cardHeader = $('<div>');
@@ -25,7 +25,7 @@ function getArticles(){
       cardBody.addClass('card-body');
       var p =$('<p>');
       p.addClass('byLine');
-      p.html(data[i].byLine);
+      p.html(dbArticle[i].byLine);
       cardBody.append(cardHeader,p);
       card.append(cardBody);
       $('#articles').append(card);
