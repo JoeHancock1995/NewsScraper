@@ -7,21 +7,26 @@ function scrapeArticles() {
     console.log('Call getArticles');
       })
     };
-$("#btnScrape").click (function() {
+  function getArticles(){
   $.get('/articles', function(data) {
-    alert("data:" + data);
+    $('#articles').empty();
+    for (var i=0; i < data.length; i++) {
+      var card = $('<div>');
+      card.addClass('card');
+      var cardHeader = $('<div>');
+      cardHeader.addClass('card-header');
+      var cardBody = $('<div>');
+      cardBody.addClass('card-body');
+      var p =$('<p>');
+      p.addClass('byLine');
+      p.html(data[i].byLine);
+      cardBody.append(cardHeader,p);
+      card.append(cardBody);
+      $('#articles').append(card);
+    }
   });
-});
-// Click the Scrape New Articles Button
-$(document).on('click', '#btnScrape', function(e) {
-  console.log('btnScrape Clicked!');
-  // Prevent submit
-  e.preventDefault();
-  // Empty the Articles div
-  $('#articles').empty();
-  // Now call the function to scrape and get the Articles
-  scrapeArticles();
-});
+};
+
 // 2. build a div card for each one after looping each article
 // 3. make buttons work- fetch articles, add/ delete comments, etc
 // 4. append card and info
