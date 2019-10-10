@@ -1,13 +1,19 @@
  // Function to call the scrape articles route
-function scrapeArticles() {
-  $.get('/scrape', function(data) {
+ function scrapeArticles() {
+       $(document).on('click', '#scrapebtn', function(e) {
+      console.log('scrapebtn clicked');
+      e.preventDefault();
+      $('#articles').empty();
+      getArticles();
+      console.log('Call getArticles');
+    });
+  $.get('/articles', function(data) {
     console.log('Data', data);
-    alert("Added new articles");
     // After scrape is finished, get the articles
-    console.log('Call getArticles');
-      })
-    };
-  function getArticles(){
+      });
+    }
+
+function getArticles(){
   $.get('/articles', function(data) {
     $('#articles').empty();
     for (var i=0; i < data.length; i++) {
