@@ -1,4 +1,3 @@
-// ----------things to put in app.js
  // Function to call the scrape articles route
 function scrapeArticles() {
   $.get('/scrape', function(data) {
@@ -8,7 +7,6 @@ function scrapeArticles() {
     console.log('Call getArticles');
       })
     };
-
 $("#btnScrape").click (function() {
   $.get('/articles', function(data) {
     alert("data:" + data);
