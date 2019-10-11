@@ -19,11 +19,11 @@ function getArticles(){
     for (var i=0; i < dbArticle.length; i++) {
       var card = $('<div>');
       card.addClass('card');
-      var cardHeader = $('<div>');
+      var cardHeader = $('<div>').text(dbArticle[i].title[0]);
       cardHeader.addClass('card-header');
-      var cardBody = $('<div>');
+      var cardBody = $('<div>').text(dbArticle[i].summary[0]);
       cardBody.addClass('card-body');
-      var p =$('<p>');
+      var p =$('<p>').text(dbArticle[i].link[0]);
       p.addClass('byLine');
       p.html(dbArticle[i].byLine);
       cardBody.append(cardHeader,p);
