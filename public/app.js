@@ -28,15 +28,37 @@ function getArticles(){
       p.html(dbArticle[i].byLine);
       var btnComments=$('<button>');
       btnComments.addClass('comment-button');
+      btnComments.text("Comment")
       // btnComments.attr('id', data[i]._id);
-
       cardBody.append(cardHeader,p, btnComments);
       card.append(cardBody);
       $('#articles').append(card);
     }
   });
 };
+function commenting() {
+  $(document).on('click', '.comment-button', function(){
+    $("#comments").empty();
+    var thisId = $(this).attr("data-id"); 
+    $.ajax({
+      method: "GET",
+      url: "/articles/" + thisId
+    })
+    .then(function(data) {
+      console.log(data);
+      $("#comments").append("<h2>" + data.title + "</h2>");
+      $("#comments").append("<input id='titleinput' name ='title'>");
+      $("#comments").append("<textarea id='bodyinput' name='body'></textarea>");
+      $("#comments").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
+      if (data.comment) {
+        $("#titleinput").val(data.comment.title);
+        // Place the body of the note in the body textarea
+        $("#bodyinput").val(data.comment.body); 
+      }
+    })
+  })
+};
 // // Whenever someone clicks a p tag
 // $(document).on("click", "card", function() {
 //   // Empty the notes from the note section
