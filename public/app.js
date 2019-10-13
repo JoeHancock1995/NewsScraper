@@ -1,17 +1,22 @@
- // Function to call the scrape articles route
- function scrapeArticles() {
-       $(document).on('click', '#scrapebtn', function(e) {
+route
+/*
+Calvin notes: I removed the document.onclick since you defined a function called scrapeArticles. You can only do 1 of the following to scrape
+ 1) create a document on click event listner - which I removed
+ 2) create a custom function and call this function when user clicks on button (which you did and thats what were doing here)
+*/
+function scrapeArticles() {
       console.log('scrapebtn clicked');
-      e.preventDefault();
       $('#articles').empty();
-      getArticles();
-      console.log('Call getArticles');
-    });
-  $.get('/articles', function(data) {
-    console.log('Data', data);
-    // After scrape is finished, get the articles
+
+      // Calvin note...I updated this to route to point to your scrape logic. You had /articles endpoint.
+      $.get('/scrape', function(data) {
+        console.log('Data', data);
+        // After scrape is finished, get the articles
+        getArticles();
       });
-    }
+      
+      console.log('Call getArticles');
+}
 
 function getArticles(){
   $.get('/articles', function(dbArticle) {

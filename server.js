@@ -1,4 +1,3 @@
-//=========================================Dependencies=================================//
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
@@ -17,33 +16,39 @@ app.use(express.static("public"));
 // ==============================Connect to the Mongo DB===============================//
 mongoose.connect('mongodb://localhost:27017/newsscraper', {useNewUrlParser: true});
 //===================================== Start the Scrape =============================//
-app.get("/scrape", function(req, res) {  db.Article.deleteMany({})
-.then(function(dbArticleRem) {
-  console.log(dbArticleRem);
-})
-.catch(function(err) {
-  console.log(err);
-});
-//=========cheerio scraping RA website via axios request into the DB================//
-axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
-  var $ = cheerio.load(response.data);
+app.get("/scrape", function(req, res) {
+  db.Article.deleteMany({})
+  .then(function(dbArticleRem) {
 
-  $("article").each(function(i, element) {
-    var result = {};
+    /* Calvin notes. When we are done calling the deleteMany.
+    The logic below is where the scraping will occur. We have it in the .then of deleteMany because we want deleteMany to finish its job. *Then* we scrape
+    */
+    console.log(dbArticleRem);
+
+      //=========cheerio scraping RA website via axios request into the DB================//
+    axios.get("https://www.residentadvisor.net/reviews.aspx").then(function(response) {
+      var $ = cheerio.load(response.data);
     
-    result.title = $(this).find("h1").text();
-    result.link = $(this).find("a").attr("href");
-    result.summary = $(this).find("p.copy").text();
-
-    db.Article.create(result)
-    .then(function(dbArticle) {
-      console.log(dbArticle);
-      res.json(dbArticle);
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
-    });
+      $("article").each(function(i, element) {
+          var result = {};
+          
+          result.title = $(this).find("h1").text();
+          result.link = $(this).find("a").attr("href");
+          result.summary = $(this).find("p.copy").text();
+    
+          db.Article.create(result)
+          .then(function(dbArticle) {
+            console.log(dbArticle);
+            res.json(dbArticle);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+        });
+      });
+  })
+  .catch(function(err) {
+    console.log(err);
   });
 });
 
