@@ -33,7 +33,7 @@ app.get("/scrape", function(req, res) {
           var result = {};
           
           result.title = $(this).find("h1").text();
-          result.link = $(this).find("a").attr("href");
+          result.link = 'https://www.residentadvisor.com' + $(this).find("a").attr("href");
           result.summary = $(this).find("p.copy").text();
     
           db.Article.create(result)
