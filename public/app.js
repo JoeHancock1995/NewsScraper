@@ -31,7 +31,7 @@ function getArticles(){
       var p =$('<p>').text(dbArticle[i].link[0]);
       p.addClass('byLine');
       p.html(dbArticle[i].byLine);
-      var btnComments=$('<button>');
+      var btnComments=$('<input>');
       btnComments.addClass('comment-button');
       btnComments.text("Comment");
       cardBody.append(cardHeader,p, btnComments);
@@ -40,10 +40,13 @@ function getArticles(){
     }
   });
 };
-function addComment () { 
-  var inputText = document.createElement()
-}
 
+function msg() {
+  var x = document.createElement("TEXTAREA");
+  var t = document.createTextNode("Comment");
+  x.appendChild(t);
+  document.body.appendChild(x);
+}
 
 
 
