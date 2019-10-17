@@ -1,4 +1,4 @@
-route
+// route
 /*
 Calvin notes: I removed the document.onclick since you defined a function called scrapeArticles. You can only do 1 of the following to scrape
  1) create a document on click event listner - which I removed
@@ -20,7 +20,7 @@ function scrapeArticles() {
 
 function getArticles(){
   $.get('/articles', function(dbArticle) {
-    $('#articles').empty();
+    $('.articles').empty();
     for (var i=0; i < dbArticle.length; i++) {
       var card = $('<div>');
       card.addClass('card');
@@ -31,23 +31,37 @@ function getArticles(){
       var p =$('<p>').text(dbArticle[i].link[0]);
       p.addClass('byLine');
       p.html(dbArticle[i].byLine);
-      var btnComments=$('<input>');
-      btnComments.addClass('comment-button');
-      btnComments.text("Comment");
-      cardBody.append(cardHeader,p, btnComments);
+      // var btnComments=$('<div>');
+      // btnComments.addClass('commentbtn');
+      // btnComments.text("Comment");
+      cardBody.append(cardHeader,p);
       card.append(cardBody);
-      $('#articles').append(card);
+      $('.articles').append(card);
     }
   });
 };
 
-function msg() {
-  var x = document.createElement("TEXTAREA");
-  var t = document.createTextNode("Comment");
-  x.appendChild(t);
-  document.body.appendChild(x);
-}
+$(function() {
+  var $commentBtn = $('#commentBtn');
+  var $commentForm = $('#commentForm');
+  var $textInput =  $('input:text');
 
+  $commentBtn.show();
+  $commentForm.hide();
+
+  $('#showForm').on('click', function() {
+    $commentBtn.hide();
+    $commentForm.show();
+  });
+  $commentForm.on('submit', function(e) {
+    e.preventDefault();
+    var newText = $('input:text').val();
+    $('li:last').after('<li>' + newText + '</li>');
+    $commentForm.hide();
+    $commentBtn.show();
+    $textInput.val('');
+  });
+});
 
 
 // function commenting() {
