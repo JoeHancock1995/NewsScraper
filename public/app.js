@@ -29,19 +29,48 @@ function getArticles(){
       var cardBody = $('<div>').text(dbArticle[i].summary[0]);
       cardBody.addClass('card-body');
       var p =$('<p>').text(dbArticle[i].link[0]);
+      var commentBtn = $('<button>');
+      commentBtn.addClass('comment-button');
+      commentBtn.attr('data-toggle', '#showForm');
+      card.append(cardHeader, cardBody, p, commentBtn);
+     
+      $('.articles').append(card);
+      // var commentForm = $('<form>');
+      // commentForm.addClass('comment-form');
+      // commentBtn.attr('data-target', '.commentForm');
+      commentBtn.text('Comments');
       p.addClass('byLine');
       p.html(dbArticle[i].byLine);
-      // var btnComments=$('<div>');
-      // btnComments.addClass('commentbtn');
-      // btnComments.text("Comment");
-      cardBody.append(cardHeader,p);
-      card.append(cardBody);
-      $('.articles').append(card);
-    }
+    };
+  });
+      var $commentBtn = $('#commentBtn');
+      $commentBtn.text('Add a comment');
+      var $commentForm = $('#commentForm');
+      var $textInput =  $('input:text');
+    
+      $commentBtn.show();
+      $commentForm.hide();
+    
+      $('showForm').on('click', function() {
+        console.log('comment button click');
+        $commentBtn.hide();
+        $commentForm.show();
+      });
+      $commentForm.on('submit', function(e) {
+        e.preventDefault();
+        console.log('submitted');
+        var newText = $('input:text').val();
+        $('li:last').after('<li>' + newText + '</li>');
+        $commentForm.hide();
+        $commentBtn.show();
+        $textInput.val('');
+      // commentBtn.append(commentForm);
   });
 };
 
-$(function() {
+
+
+function cardComment() {
   var $commentBtn = $('#commentBtn');
   var $commentForm = $('#commentForm');
   var $textInput =  $('input:text');
@@ -49,19 +78,21 @@ $(function() {
   $commentBtn.show();
   $commentForm.hide();
 
-  $('#showForm').on('click', function() {
+  $('showForm').on('click', function() {
+    console.log('comment button click');
     $commentBtn.hide();
     $commentForm.show();
   });
   $commentForm.on('submit', function(e) {
     e.preventDefault();
+    console.log('submitted');
     var newText = $('input:text').val();
     $('li:last').after('<li>' + newText + '</li>');
     $commentForm.hide();
     $commentBtn.show();
     $textInput.val('');
   });
-});
+};
 
 
 // function commenting() {
