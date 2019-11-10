@@ -1,9 +1,7 @@
-// route
-/*
-Calvin notes: I removed the document.onclick since you defined a function called scrapeArticles. You can only do 1 of the following to scrape
- 1) create a document on click event listner - which I removed
- 2) create a custom function and call this function when user clicks on button (which you did and thats what were doing here)
-*/
+// Calvin notes: I removed the document.onclick since you defined a function called scrapeArticles. You can only do 1 of the following to scrape
+//  1) create a document on click event listner - which I removed
+//  2) create a custom function and call this function when user clicks on button (which you did and thats what were doing here)
+
 function scrapeArticles() {
       console.log('scrapebtn clicked');
       $('#articles').empty();
@@ -14,7 +12,6 @@ function scrapeArticles() {
         // After scrape is finished, get the articles
         getArticles();
       });
-      
       console.log('Call getArticles');
 }
 
@@ -70,29 +67,30 @@ function getArticles(){
 
 
 
-function cardComment() {
-  var $commentBtn = $('#commentBtn');
-  var $commentForm = $('#commentForm');
-  var $textInput =  $('input:text');
 
-  $commentBtn.show();
-  $commentForm.hide();
+// function cardComment() {
+//   var $commentBtn = $('#commentBtn');
+//   var $commentForm = $('#commentForm');
+//   var $textInput =  $('input:text');
 
-  $('showForm').on('click', function() {
-    console.log('comment button click');
-    $commentBtn.hide();
-    $commentForm.show();
-  });
-  $commentForm.on('submit', function(e) {
-    e.preventDefault();
-    console.log('submitted');
-    var newText = $('input:text').val();
-    $('li:last').after('<li>' + newText + '</li>');
-    $commentForm.hide();
-    $commentBtn.show();
-    $textInput.val('');
-  });
-};
+//   $commentBtn.show();
+//   $commentForm.hide();
+
+//   $('showForm').on('click', function() {
+//     console.log('comment button click');
+//     $commentBtn.hide();
+//     $commentForm.show();
+//   });
+//   $commentForm.on('submit', function(e) {
+//     e.preventDefault();
+//     console.log('submitted');
+//     var newText = $('input:text').val();
+//     $('li:last').after('<li>' + newText + '</li>');
+//     $commentForm.hide();
+//     $commentBtn.show();
+//     $textInput.val('');
+//   });
+// };
 
 
 // function commenting() {
